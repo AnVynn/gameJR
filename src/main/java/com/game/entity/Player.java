@@ -13,12 +13,18 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String title;
+
+    @Column(name = "race")
     @Enumerated(EnumType.STRING)
     private Race race;
+
+    @Column(name = "profession")
     @Enumerated(EnumType.STRING)
     private Profession profession;
+
     private Integer experience;
     private Integer level;
     private Integer untilNextLevel;
@@ -26,6 +32,18 @@ public class Player {
     private Boolean banned;
 
     public Player() {}
+
+    public Player(String name, String title, Race race, Profession profession, Integer experience, Date birthday, Boolean banned) {
+        this.name = name;
+        this.title = title;
+        this.race = race;
+        this.profession = profession;
+        this.experience = experience;
+        this.birthday = birthday;
+
+        if (banned == null) this.banned = false;
+        else this.banned = banned;
+    }
 
     public Long getId() {
         return id;
@@ -118,5 +136,21 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, title, race, profession, experience, level, untilNextLevel, birthday, banned);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", race=" + race +
+                ", profession=" + profession +
+                ", experience=" + experience +
+                ", level=" + level +
+                ", untilNextLevel=" + untilNextLevel +
+                ", birthday=" + birthday +
+                ", banned=" + banned +
+                '}';
     }
 }
